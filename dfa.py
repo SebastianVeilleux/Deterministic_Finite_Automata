@@ -41,7 +41,6 @@ def procesar_cadena(cadena, transiciones):
         clasificacion = clasificar_caracter(caracter)
 
         if estado_actual == "qcom":
-            # Capturar el resto de la línea como un comentario
             token_actual += cadena[i:]
             tokens.append((token_actual, estado_actual))
             break
@@ -85,7 +84,7 @@ def lexer_aritmetico(archivo):
         "qstart": {
             "digito": "qint",
             "letra": "qvar",
-            "guion_bajo": "qerror",  # Error: variable no puede iniciar con "_"
+            "guion_bajo": "qerror", 
             "asignacion": "qass",
             "suma": "qsum",
             "resta": "qsub",
@@ -95,14 +94,14 @@ def lexer_aritmetico(archivo):
             "parentesis_abre": "qop",
             "parentesis_cierra": "qcl",
             "espacio": "qstart",
-            "otro": "qerror",  # Caracter inválido
+            "otro": "qerror",
         },
         "qint": {
             "digito": "qint",
             "punto": "qfloat",
             "exponente": "qexp",
-            "letra": "qerror",  # Error: número no puede mezclarse con letras
-            "guion_bajo": "qerror",  # Error: número no puede mezclarse con "_"
+            "letra": "qerror", 
+            "guion_bajo": "qerror",
             "otro": "qend",
         },
         "qfloat": {
@@ -113,11 +112,11 @@ def lexer_aritmetico(archivo):
         "qexp": {
             "digito": "qexpnum",
             "resta": "qexpsign",
-            "otro": "qerror",  # Error: exponente debe ser un número
+            "otro": "qerror", 
         },
         "qexpsign": {
             "digito": "qexpnum",
-            "otro": "qerror",  # Error: signo debe ir seguido de número
+            "otro": "qerror",  
         },
         "qexpnum": {
             "digito": "qexpnum",
@@ -134,14 +133,14 @@ def lexer_aritmetico(archivo):
         "qsub": {"otro": "qend"},
         "qmul": {"otro": "qend"},
         "qdiv": {
-            "division": "qcom",  # Comentario al detectar "//"
+            "division": "qcom",
             "otro": "qend",
         },
         "qpow": {"otro": "qend"},
         "qop": {"otro": "qend"},
         "qcl": {"otro": "qend"},
-        "qcom": {"otro": "qcom"},  # Permanecer en comentario
-        "qerror": {},  # Estado de error: no transiciones válidas
+        "qcom": {"otro": "qcom"}, 
+        "qerror": {}, 
     }
 
     tipos_tokens = {
@@ -173,5 +172,5 @@ def lexer_aritmetico(archivo):
                 else:
                     print(f"Token: {token}, Tipo: {tipo}")
 
-# Prueba con un archivo de entrada
+# archivo de entrada
 lexer_aritmetico("expresiones.txt")
